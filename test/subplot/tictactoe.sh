@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Test lines between subplot with -W
-gmt begin tictactoe ps
+#
+# PNG_TEST
+gmt begin tictactoe png
     gmt set FONT_ANNOT_PRIMARY 12p
     gmt subplot begin 3x3 -Fs5c+w1p,- -M0 -Blrbt
         gmt coast -Rg -JG30/30/?  -Gred -Bg -c0,0

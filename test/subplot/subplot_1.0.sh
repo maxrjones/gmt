@@ -12,7 +12,8 @@
 # This results in 16 different 2x2 subplot examples
 
 # 1.0 No -S no override
-gmt begin subplot_1.0
+# PNG_TEST
+gmt begin subplot_1.0 png
 	gmt set FONT_HEADING 28p,Helvetica,black
     gmt subplot begin 2x2 -Fs8c -R-2/2/0/10 -T"1.0: No -S"
        	gmt basemap -c

@@ -12,7 +12,8 @@
 # This results in 16 different 2x2 subplot examples
 
 # 1.1 No -S, MAP_FRAME_AXES override
-gmt begin subplot_1.1
+# PNG_TEST
+gmt begin subplot_1.1 png
 	gmt set FONT_HEADING 28p,Helvetica,black
     gmt subplot begin 2x2 -Fs8c -R-2/2/0/10 --MAP_FRAME_AXES=wsne -T"1.1: No -S, MAP_FRAME_AXES=wsne"
        	gmt basemap -c

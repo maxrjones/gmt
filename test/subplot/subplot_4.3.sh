@@ -12,7 +12,8 @@
 # This results in 16 different 2x2 subplot examples
 
 # 4.3 -Sr -Sc, panel -B override
-gmt begin subplot_4.3
+# PNG_TEST
+gmt begin subplot_4.3 png
 	gmt set FONT_HEADING 28p,Helvetica,black
     gmt subplot begin 2x2 -Fs8c -SCb -Srl -R-2/2/0/10 -T"4.3: -Srl -Scb, LL panel -Bwsne"
        	gmt basemap -c

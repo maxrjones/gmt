@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Test contour map with legends
-gmt begin 4legends ps
+# PNG_TEST
+gmt begin 4legends png
     gmt subplot begin 2x2 -Fs3i -Srl -Scb -R-2/2/-2/2
        	echo 0 0 | gmt plot -Sc0.1i -Gblue -lThird -c0,1
         echo 0 0 | gmt plot -Sc0.1i -Gblack -lFourth -c1,1

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Test various -J perturbations
-gmt begin linpanelsnew ps
+# PNG_TEST
+gmt begin linpanelsnew png
   gmt set MAP_FRAME_TYPE plain
   gmt subplot begin 3x3 -Fs5c/7c -A1 -M6p -R0/100/0/80 -BWSen
     gmt basemap -c

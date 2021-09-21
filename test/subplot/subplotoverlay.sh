@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Test subplot -D in successfully overlaying two subplots
-gmt begin subplotoverlay ps
+#
+# PNG_TEST
+gmt begin subplotoverlay png
 	gmt subplot begin 3x2 -R0/8/0/6 -Fs8c/6c -M6p -A -SCl -Srb -Bafg1 -T"My Repeated Subplot"
 		gmt basemap -c
 		gmt basemap -c

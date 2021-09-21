@@ -11,8 +11,9 @@
 # subplot_x.3 adds -Bframes just for one panel (LL)
 # This results in 16 different 2x2 subplot examples
 
-# 4.1 -Sr -Sc, MAP_FRAME_AXES override 
-gmt begin subplot_4.1
+# 4.1 -Sr -Sc, MAP_FRAME_AXES override
+# PNG_TEST
+gmt begin subplot_4.1 png
 	gmt set FONT_HEADING 28p,Helvetica,black
     gmt subplot begin 2x2 -Fs8c -Scb -Srl -R-2/2/0/10 --MAP_FRAME_AXES=wsne -T"4.1: -Srl -Scb, MAP_FRAME_AXES=wsne"
        	gmt basemap -c

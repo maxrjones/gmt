@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Test the 3 frames in https://forum.generic-mapping-tools.org/t/incoherent-gridline-behaviour/1319/13
-
+#
 # PNG_TEST
 
 gmt begin absrelaxis png
