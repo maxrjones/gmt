@@ -16,6 +16,7 @@ script_dir=$(dirname "${script_name}")
 local_script=$(basename "${script_name}")
 script="@GMT_SOURCE_DIR@/${script_name}"
 src="@GMT_SOURCE_DIR@/${script_dir}"
+baseline="@GMT_SOURCE_DIR@/test/baseline"
 
 # Skip tests with label GMT_DISABLE_TEST
 skip_this_test=$(grep GMT_DISABLE_TEST "$script" -c)
@@ -24,8 +25,13 @@ if [ $skip_this_test -gt 0 ]; then	# Do not run this script, probably PS is too 
 		exit 0
 fi
 
+png_test=$(grep PNG_TEST "$script" -c)
 # Is it a modern mode or one-liner script
-modern=$(grep "gmt begin\| -ps " "$script" -c)
+if [ $png_test -gt 0 ]; then
+  modern=$(grep "gmt begin\| -png " "$script" -c)
+else
+  modern=$(grep "gmt begin\| -ps " "$script" -c)
+fi
 
 # Is it a script that is known to fail?
 if [ "@GMT_ENABLE_KNOWN2FAIL@" = "ON" ]; then
@@ -148,6 +154,34 @@ if ! [ -x "$GRAPHICSMAGICK" ]; then
   echo "[PASS] (without comparison)"
   return
 fi
+
+if [ $png_test -gt 0 ]; then
+for png in *.png ; do
+  if [ ${known2fail} -eq 1 ]; then	# No point running the comparison since we know it fails
+      echo "${script_dir}/${png}: RMS Error = N/A [FAIL] (known failure)"
+      now=$(date "+%F %T")
+      echo "$now ${script_dir}/${ppngs}: RMS Error = N/A Limit = $GRAPHICSMAGICK_RMS Failure = known" >> "@CMAKE_CURRENT_BINARY_DIR@/fail_count.txt"
+  else
+    # syntax: gm compare [ options ... ] reference-image [ options ... ] compare-image [ options ... ]
+    rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${png%.png}_diff.png" "$png" "$baseline/${psref:-$png}") || pscmpfailed="yes"
+    rms=$(perl -ne 'print $1 if /Total: ([0-9.]+)/' <<< "$rms")
+    if [ -z "$rms" ]; then
+      rms="NA"
+    else
+      rms=$(printf "%.4f\n" $rms)
+    fi
+    if [ "$pscmpfailed" ]; then
+      now=$(date "+%F %T")
+      echo "${script_dir}/${png}: RMS Error = $rms [FAIL]"
+      echo "$now ${script_dir}/${png}: RMS Error = $rms Limit = $GRAPHICSMAGICK_RMS Failure = new" >> "@CMAKE_CURRENT_BINARY_DIR@/fail_count.txt"
+      ((++ERROR))
+    else
+      test -z "$rms" && rms=N/A
+      echo "${script_dir}/${png}: RMS Error = $rms [PASS]"
+    fi
+  fi
+done
+else
 for ps in *.ps ; do
   if [ ${known2fail} -eq 1 ]; then	# No point running the comparison since we know it fails
       echo "${script_dir}/${ps}: RMS Error = N/A [FAIL] (known failure)"
@@ -155,7 +189,7 @@ for ps in *.ps ; do
       echo "$now ${script_dir}/${ps}: RMS Error = N/A Limit = $GRAPHICSMAGICK_RMS Failure = known" >> "@CMAKE_CURRENT_BINARY_DIR@/fail_count.txt"
   else
     # syntax: gm compare [ options ... ] reference-image [ options ... ] compare-image [ options ... ]
-    rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${ps%.ps}.png" "$ps" "$src/${psref:-$ps}") || pscmpfailed="yes"
+    rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${ps%.ps}_diff.png" "$ps" "$src/${psref:-$ps}") || pscmpfailed="yes"
     rms=$(perl -ne 'print $1 if /Total: ([0-9.]+)/' <<< "$rms")
     if [ -z "$rms" ]; then
       rms="NA"
@@ -174,6 +208,7 @@ for ps in *.ps ; do
     fi
   fi
 done
+fi
 }
 
 passfail () {
@@ -280,6 +315,8 @@ if [[ $script_name == doc/examples/* ]]; then
 	gmt set -Ds GMT_GRAPHICS_FORMAT ps
 elif [[ $script_name == doc/scripts/* ]]; then
   gmt set -Du PS_CHAR_ENCODING ISOLatin1+ GMT_GRAPHICS_FORMAT ps
+elif [ $png_test -gt 0 ]; then
+  gmt set -Du GMT_GRAPHICS_FORMAT png
 else
 	gmt set -Du GMT_GRAPHICS_FORMAT ps
 fi
@@ -296,6 +333,8 @@ EOF
 chmod 755 gmtest.sh
 . ./gmtest.sh
 # Modern mode needs to reestablish the $ps variable before exit
-if [ "X$script_mode" = "XM" ] && [ "X$ps" = "X" ]; then
-	ps="${local_script%.sh}.ps"
+if [ "X$script_mode" = "XM" ] && [ "X$ps" = "X" ] && [ $png_test -gt 0 ]; then
+	ps="${local_script%.sh}.png"
+elif [ "X$script_mode" = "XM" ] && [ "X$ps]" = "X" ]; then
+  ps="${local_script%.sh}.ps"
 fi
