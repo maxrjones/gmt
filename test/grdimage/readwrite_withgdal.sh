@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+# PS_TEST
 
 GDAL=$(gmt grdconvert 2>&1 | grep -c gd)
 if [ $GDAL -eq 0 ]; then exit; fi
