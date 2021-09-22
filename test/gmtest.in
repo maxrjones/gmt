@@ -26,6 +26,8 @@ if [ $skip_this_test -gt 0 ]; then	# Do not run this script, probably PS is too 
 fi
 
 png_test=$(grep PNG_TEST "$script" -c)
+ps_test=$(grep PS_TEST "$script" -c)
+
 # Is it a modern mode or one-liner script
 if [ $png_test -gt 0 ]; then
   modern=$(grep "gmt begin\| -png " "$script" -c)
@@ -189,7 +191,11 @@ for ps in *.ps ; do
       echo "$now ${script_dir}/${ps}: RMS Error = N/A Limit = $GRAPHICSMAGICK_RMS Failure = known" >> "@CMAKE_CURRENT_BINARY_DIR@/fail_count.txt"
   else
     # syntax: gm compare [ options ... ] reference-image [ options ... ] compare-image [ options ... ]
-    rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${ps%.ps}_diff.png" "$ps" "$src/${psref:-$ps}") || pscmpfailed="yes"
+    if [ $ps_test -gt 0 ]; then
+      rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${ps%.ps}_diff.png" "$ps" "$baseline/${psref:-$ps}") || pscmpfailed="yes"
+    else
+      rms=$("${GRAPHICSMAGICK}" compare -density 200 -maximum-error $GRAPHICSMAGICK_RMS -highlight-color magenta -highlight-style assign -metric rmse -file "${ps%.ps}_diff.png" "$ps" "$src/${psref:-$ps}") || pscmpfailed="yes"
+    fi
     rms=$(perl -ne 'print $1 if /Total: ([0-9.]+)/' <<< "$rms")
     if [ -z "$rms" ]; then
       rms="NA"
