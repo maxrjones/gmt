@@ -5,7 +5,7 @@
 # Points are prepared that will land in various tiles, some will
 # fall exactly on tile boundaries.  One point will fall outside -R
 # but should be considered for the gridline registrated case.
-
+# PS_TEST
 ps=xy2ij.ps
 
 # Set up the four answer files:

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# PS_TEST
 
 ps=hyperbolic_map.ps
 

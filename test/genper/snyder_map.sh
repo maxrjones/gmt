@@ -2,6 +2,7 @@
 # Due to hairline differences in many gridlines between Linux and macOS we need a
 # higher rms threshold for this test to pass
 # GRAPHICSMAGICK_RMS = 0.0055
+# PS_TEST
 
 ps=snyder_map.ps
 

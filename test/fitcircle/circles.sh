@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Tests gmt fitcircle on spherical data points
+# PS_TEST
 
 ps=circles.ps
 

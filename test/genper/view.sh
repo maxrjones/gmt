@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Test new syntax for view window
+# PS_TEST
 
 gmt begin view
 	gmt set FONT_TAG 12p

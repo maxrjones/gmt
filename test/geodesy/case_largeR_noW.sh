@@ -4,6 +4,8 @@
 # Due to hairline differences in many gridlines between Linux and macOS we need a
 # higher rms threshold for this test to pass
 # GRAPHICSMAGICK_RMS = 0.0435
+# PS_TEST
+
 ps=case_largeR_noW.ps
 # Use real GPS data with uncertainties
 data=$(gmt which -G @wus_gps_final_crowell.txt)

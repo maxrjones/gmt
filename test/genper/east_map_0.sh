@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Test of gmt projection
+# PS_TEST
 
 ps=east_map_0.ps
 

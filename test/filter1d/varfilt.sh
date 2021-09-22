@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Basic test of variable filter widths
 # Make a fake data set
+# PS_TEST
+
 gmt math -T0/1000/1 T 0.5 MUL COSD 4 MUL T 2 MUL COSD ADD T 20 MUL SIND 0.5 MUL ADD = data.txt
 # Make a periodic set of filter widths from 5 to 115
 gmt math -T0/1000/1 T SIND 55 MUL 60 ADD = fw.txt

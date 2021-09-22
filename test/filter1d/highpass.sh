@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Testing gmt filter1d highpass and lowpass
+# PS_TEST
 
 ps=highpass.ps
 gmt psxy -R0/100/-5/25 -JX6i/2.75i -P -Xc -Baf -BWSne -W0.25p raw_data.txt -K > $ps

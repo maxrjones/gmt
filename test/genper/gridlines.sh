@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # More testing of issue #667
+# PS_TEST
+
 ps=gridlines.ps
 lon0=188.144925731
 lat0=80.7167845195

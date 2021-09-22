@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# PS_TEST
 
 ps=east_map_3.ps
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Testing gmt filter1d
+# PS_TEST
 
 ps=cfilter.ps
 

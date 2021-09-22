@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Check that odd gridline clipping due to bad mapjump call don't resurface
+# PS_TEST
+
 ps=polar.ps
 lon0=210.651901558
 lat0=78.8472134393

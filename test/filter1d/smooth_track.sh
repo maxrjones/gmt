@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Make sure filter1d spatial filtering works
+# PS_TEST
+
 ps=smooth_track.ps
 # km
 gmt psxy -R0/30/0/15 -JM6i -P track.txt -Wfaint,blue -Baf -BWSne -K -Y0.75i > $ps

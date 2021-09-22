@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Get and filter the Keeling curve with monthly averages
+# PS_TEST
+
 ps=mfilter.ps
 gmt set MAP_ANNOT_ORTHO "" FORMAT_TIME_PRIMARY_MAP Abbreviated FORMAT_DATE_MAP o
 URL=https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/weekly/weekly_in_situ_co2_mlo.csv
