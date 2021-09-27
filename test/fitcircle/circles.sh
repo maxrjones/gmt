@@ -3,7 +3,7 @@
 # Tests gmt fitcircle on spherical data points
 # PS_TEST
 
-ps=circles.ps
+ps=fitcircles.ps
 
 # Fit great circle to red points and small circle to green points
 # Plot the best-fitting great and small circles as well as the
